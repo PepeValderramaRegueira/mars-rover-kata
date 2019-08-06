@@ -1,21 +1,25 @@
 // Function to check if the rover is goinf out of limits
-const roverOutOfLimits = (rover) => {
+const roverOutOfLimits = (rover, movement) => {
 
   if (rover.direction === 'N') {
 
-    if (rover.y === 0) return false
+    if (rover.y === 0 && movement === 'forward') return false
+    if (rover.y === 9 && movement === 'backward') return false
 
   } else if (rover.direction === 'S') {
 
-    if (rover.y === 9) return false
+    if (rover.y === 9 && movement === 'forward') return false
+    if (rover.y === 0 && movement === 'backward') return false
 
   } else if (rover.direction === 'W') {
 
-    if (rover.x === 0) return false
+    if (rover.x === 0 && movement === 'forward') return false
+    if (rover.x === 9 && movement === 'backward') return false
     
   } else {
 
-    if (rover.x === 9) return false
+    if (rover.x === 9 && movement === 'forward') return false
+    if (rover.x === 0 && movement === 'backward') return false
   }
 
   return true
@@ -26,7 +30,7 @@ const roverOutOfLimits = (rover) => {
 const moveForward = (rover) => {
 
   // Check if the rover can move
-  if (!roverOutOfLimits(rover)) {
+  if (!roverOutOfLimits(rover, "forward")) {
     console.log('The rover is going to roam off the map!')
     return
   }
@@ -35,11 +39,12 @@ const moveForward = (rover) => {
   // Check where is heading and move
   switch (rover.direction) {
 
-    case 'N': rover.y--; break;
-    case 'S': rover.y++; break;
-    case 'E': rover.x++; break;
-    case 'W': rover.x--; break;
+    case 'N':
+    case 'S': rover.y += moves.forward[rover.direction]; break;
+    default: rover.x += moves.forward[rover.direction]
   }
+
+  rover.travelLog.push([rover.x, rover.y])
 
   console.log(rover)
 }
@@ -48,6 +53,19 @@ const moveForward = (rover) => {
 // Function to move backward
 const moveBackward = (rover) => {
 
+  // Check if the rover is out of limits
+  if (!roverOutOfLimits(rover, "backward")) {
+    console.log(`The ${rover.name} is going to roam off the map!`)
+    return
+  }
+
+  // The rover can move backwards
+  switch (rover.direction) {
+
+    case 'N':
+    case 'S': rover.y += moves.backward[rover.direction]; break;
+    default: rover.x += moves.backward[rover.direction]
+  }
 }
 
 
@@ -89,9 +107,21 @@ const turnLeft = (rover) => {
 }
 
 
-// Function that revieve a list of the commands to execute them in order
-const executeCommands = (rover, list) => {
+// Object to store the movements that the rovers can do
+const moves = {
+  forward: {
+    N: -1,
+    E: 1,
+    S: 1,
+    W: -1
+  },
 
+  backward: {
+    N: 1,
+    E: -1,
+    S: -1,
+    W: 1
+  }
 }
 
 
@@ -101,6 +131,7 @@ const rovers = {
     name: "Ironhack's Mars rover",
     direction: 'N',
     x: 0,
-    y: 0
+    y: 0,
+    travelLog: []
   }
 }
