@@ -44,6 +44,8 @@ const moveForward = (rover) => {
     default: rover.x += moves.forward[rover.direction]
   }
 
+  rover.travelLog.push([rover.x, rover.y])
+
   console.log(rover)
 }
 
@@ -64,6 +66,10 @@ const moveBackward = (rover) => {
     case 'S': rover.y += moves.backward[rover.direction]; break;
     default: rover.x += moves.backward[rover.direction]
   }
+
+  rover.travelLog.push([rover.x, rover.y])
+
+  console.log(rover)
 }
 
 
