@@ -44,8 +44,6 @@ const moveForward = (rover) => {
     default: rover.x += moves.forward[rover.direction]
   }
 
-  rover.travelLog.push([rover.x, rover.y])
-
   console.log(rover)
 }
 
@@ -107,6 +105,26 @@ const turnLeft = (rover) => {
 }
 
 
+// Function that revieve a list of the commands to execute them in order
+const executeCommands = (rover, list) => {
+
+  list.split('').map( command => {
+
+    console.log(`Execute ${command}`)
+
+    // Check the command to execute
+    switch (command) {
+
+      case 'r': turnRight(rover); break;
+      case 'l': turnLeft(rover); break;
+      case 'f': moveForward(rover); break;
+      case 'b': moveBackward(rover); break;
+      default: console.log('Invalid command')
+    }
+  })
+}
+
+
 // Object to store the movements that the rovers can do
 const moves = {
   forward: {
@@ -135,3 +153,8 @@ const rovers = {
     travelLog: []
   }
 }
+
+// String to test the list of the commands
+let commandList = 'rfrfflflfffrfrflffrfrf'
+
+executeCommands(rovers.ironhack, commandList)
