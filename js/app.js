@@ -1,3 +1,48 @@
+// Object to store the movements that the rovers can do
+const moves = {
+  forward: {
+    N: -1,
+    E: 1,
+    S: 1,
+    W: -1
+  },
+
+  backward: {
+    N: 1,
+    E: -1,
+    S: -1,
+    W: 1
+  }
+}
+
+// Object for the map. Contains all the obstacles
+// If an element is different to 0, it's an obstacle
+const map = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 'Martian rock', 0, 0, 0, 0, 0, 0],
+  [0, 'Remains of the Pathfinder probe', 0, 0, 0, 0, 0, 'Schiaparelli crater', 0, 0],
+  [0, 0, 0, 0, 'Martian rock', 0, 0, 0, 0, 0],
+  [0, 'Martian rock', 0, 0, 0, 0, 0, 0, 'Martian rock', 0],
+  
+  [0, 0, 0, 0, 0, 0, 'Martian rock', 0, 0, 0],
+  [0, 0, 'Cassini crater', 0, 0, 0, 0, 'Olympus Mons', 0, 0],
+  [0, 0, 0, 'Martian rock', 0, 0, 0, 0, 0, 0],
+  [0, 'Remains of the Opportunity rover', 0, 0, 0, 0, 0, 'Martian rock', 0, 0],
+  [0, 0, 'Martian rock', 0, 0, 0, 0, 0, 0, 0],
+]
+
+
+// Rovers
+const rovers = {
+  ironhack: {
+    name: "Ironhack's Mars rover",
+    direction: 'N',
+    x: 0,
+    y: 0,
+    travelLog: []
+  }
+}
+
 // Function to check if the rover is goinf out of limits
 const roverOutOfLimits = (rover, movement) => {
 
@@ -128,36 +173,6 @@ const executeCommands = (rover, list) => {
       default: console.log('Invalid command')
     }
   })
-}
-
-
-// Object to store the movements that the rovers can do
-const moves = {
-  forward: {
-    N: -1,
-    E: 1,
-    S: 1,
-    W: -1
-  },
-
-  backward: {
-    N: 1,
-    E: -1,
-    S: -1,
-    W: 1
-  }
-}
-
-
-// Rovers
-const rovers = {
-  ironhack: {
-    name: "Ironhack's Mars rover",
-    direction: 'N',
-    x: 0,
-    y: 0,
-    travelLog: []
-  }
 }
 
 // String to test the list of the commands
