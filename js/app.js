@@ -125,7 +125,9 @@ const moveForward = (rover) => {
   let nextPosition = getRoverNextPosition(rover, "forwards")
 
   if (!nextPosition.roverCanMove) {
-    console.log(`The ${rover.name} is heading to a ${nextPosition.found}`); return
+    console.log(`The ${rover.name} is heading to a ${nextPosition.found}`)
+    rover.travelLog.push(['Move forward', 'Obstacle found', nextPosition.found])
+    return
   }
 
   // The rover can move forward
@@ -137,9 +139,7 @@ const moveForward = (rover) => {
     default: rover.x += moves.forward[rover.direction]
   }
 
-  rover.travelLog.push([rover.x, rover.y])
-
-  // console.log(rover)
+  rover.travelLog.push(['Move forward', `x: ${rover.x}`, `y: ${rover.y}`])
 }
 
 
@@ -151,6 +151,7 @@ const moveBackward = (rover) => {
   // Check if the rover is out of limits
   if (!nextPosition.roverCanMove) {
     console.log(`The ${rover.name} is heading to a ${nextPosition.found}`)
+    rover.travelLog.push(['Move backward', 'Obstacle found', nextPosition.found])
     return
   }
 
@@ -162,7 +163,7 @@ const moveBackward = (rover) => {
     default: rover.x += moves.backward[rover.direction]
   }
 
-  rover.travelLog.push([rover.x, rover.y])
+  rover.travelLog.push(['Move backward', `x: ${rover.x}`, `y: ${rover.y}`])
 
   // console.log(rover)
 }
@@ -171,7 +172,8 @@ const moveBackward = (rover) => {
 // Function to turn right
 const turnRight = (rover) => {
 
-  let newDirection
+  let previousDirection = rover.direction,
+      newDirection
 
   // Check the current heading position of the rover
   switch (rover.direction) {
@@ -182,6 +184,9 @@ const turnRight = (rover) => {
     default: newDirection = 'N';
   }
 
+  // Add the travel log
+  rover.travelLog.push(['Turn right', `Previous direction: ${previousDirection}`, `New direction: ${newDirection}`])
+
   // Assign the new direction to the rover
   rover.direction = newDirection
 }
@@ -190,7 +195,8 @@ const turnRight = (rover) => {
 // Function to turn left
 const turnLeft = (rover) => {
 
-  let newDirection
+  let previousDirection = rover.direction,
+      newDirection
 
   // Check the current heading position of the rover
   switch (rover.direction) {
@@ -200,6 +206,9 @@ const turnLeft = (rover) => {
     case 'S': newDirection = 'E'; break;
     default: newDirection = 'N';
   }
+
+  // Add the travel log
+  rover.travelLog.push(['Turn left', `Previous direction: ${previousDirection}`, `New direction: ${newDirection}`])
 
   // Assign the new direction to the rover
   rover.direction = newDirection
