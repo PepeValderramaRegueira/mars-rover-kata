@@ -43,31 +43,73 @@ const rovers = {
   }
 }
 
-// Function to check if the rover is goinf out of limits
-const roverOutOfLimits = (rover, movement) => {
 
-  if (rover.direction === 'N') {
+// Get the rover's next possible positions (forwards
+// and backwards)
+const getRoverNextPosition = (rover, movement) => {
 
-    if (rover.y === 0 && movement === 'forward') return false
-    if (rover.y === 9 && movement === 'backward') return false
+  /**
+   * NOTE: how it is represented the coordinates of a rover in the map array?
+   * The first idea that comes to mind may be the following:
+   * 
+   *    map[rovers[rover].x][rovers[rover].y], but this is wrong!
+   * 
+   * Let's suppose that the ironhack rover has the following coordinates:
+   * 
+   *    rovers.ironhack = {
+   *      ...
+   *      x: 4,
+   *      y: 1
+   *    }
+   * 
+   * To represent it in the map array, it would be as follows:
+   * 
+   *    map[rovers.ironhack.y][rovers.ironhack.x]
+   */
 
-  } else if (rover.direction === 'S') {
+  let nextPosition
+  let nextPositionInfo
 
-    if (rover.y === 9 && movement === 'forward') return false
-    if (rover.y === 0 && movement === 'backward') return false
-
-  } else if (rover.direction === 'W') {
-
-    if (rover.x === 0 && movement === 'forward') return false
-    if (rover.x === 9 && movement === 'backward') return false
+  // Variables that will containt what's around the rover
+  let topPosition, bottomPosition, rightPosition, leftPosition
     
+  // The assignments must be enclosed in a try catch block because if the next position
+  // is off the map, itwill produce an exception ("Uncaught TypeError: Cannot read property
+  // '[x]' of undefined")
+  try {topPosition    = map[rover.y - 1][rover.x] } catch {topPosition = undefined}
+  try {bottomPosition = map[rover.y + 1][rover.x] } catch {bottomPosition = undefined}
+  try {rightPosition  = map[rover.y][rover.x +1]  } catch {rightPosition = undefined}
+  try {leftPosition   = map[rover.y][rover.x - 1] } catch {leftPosition = undefined}
+
+  // Check where the rover is heading and what movement wants to do
+  // There are movements (like going forward heading North and going backwards heading South)
+  // that are the same, so it is possible to optimize the movement check
+  if ( (rover.direction === 'N' && movement === 'forwards') ||
+    (rover.direction === 'S' && movement === 'backwards') ) nextPositionInfo = topPosition
+
+  else if ( (rover.direction === 'N' && movement === 'backwards') ||
+    (rover.direction === 'S' && movement === 'forwards') ) nextPositionInfo = bottomPosition
+
+  else if ( (rover.direction === 'E' && movement === 'forwards') ||
+    (rover.direction === 'W') && (movement === 'backwards') ) nextPositionInfo = rightPosition
+
+  else if ( (rover.direction === 'E' && movement === 'backwards') ||
+    (rover.direction === 'W' && movement === 'forwards') ) nextPositionInfo = leftPosition
+
+  // Check the type of the next position
+  // string = obstacle
+  // int = free position
+  if (typeof nextPositionInfo !== 'undefined') {
+    switch (typeof nextPositionInfo) {
+
+      case 'string': nextPosition = {roverCanMove: false, found: nextPositionInfo}; break;
+      case 'number': nextPosition = {roverCanMove: true}; break;
+    }
   } else {
-
-    if (rover.x === 9 && movement === 'forward') return false
-    if (rover.x === 0 && movement === 'backward') return false
+    nextPosition = {roverCanMove: false, found: 'precipice off the map'}
   }
-
-  return true
+  
+  return nextPosition
 }
 
 
@@ -75,9 +117,15 @@ const roverOutOfLimits = (rover, movement) => {
 const moveForward = (rover) => {
 
   // Check if the rover can move
-  if (!roverOutOfLimits(rover, "forward")) {
-    console.log('The rover is going to roam off the map!')
-    return
+  // if (!roverOutOfLimits(rover, "forward")) {
+  //   console.log('The rover is going to roam off the map!')
+  //   return
+  // }
+
+  let nextPosition = getRoverNextPosition(rover, "forwards")
+
+  if (!nextPosition.roverCanMove) {
+    console.log(`The ${rover.name} is heading to a ${nextPosition.found}`); return
   }
 
   // The rover can move forward
@@ -91,16 +139,18 @@ const moveForward = (rover) => {
 
   rover.travelLog.push([rover.x, rover.y])
 
-  console.log(rover)
+  // console.log(rover)
 }
 
 
 // Function to move backward
 const moveBackward = (rover) => {
 
+  let nextPosition = getRoverNextPosition(rover, "backwards")
+
   // Check if the rover is out of limits
-  if (!roverOutOfLimits(rover, "backward")) {
-    console.log(`The ${rover.name} is going to roam off the map!`)
+  if (!nextPosition.roverCanMove) {
+    console.log(`The ${rover.name} is heading to a ${nextPosition.found}`)
     return
   }
 
@@ -114,7 +164,7 @@ const moveBackward = (rover) => {
 
   rover.travelLog.push([rover.x, rover.y])
 
-  console.log(rover)
+  // console.log(rover)
 }
 
 
@@ -161,7 +211,7 @@ const executeCommands = (rover, list) => {
 
   list.split('').map( command => {
 
-    console.log(`Execute ${command}`)
+    // console.log(`Execute ${command}`)
 
     // Check the command to execute
     switch (command) {
@@ -176,6 +226,7 @@ const executeCommands = (rover, list) => {
 }
 
 // String to test the list of the commands
-let commandList = 'rfrfflflfffrfrflffrfrf'
+// let commandList = 'rfrfflflfffrfrflffrfrf'
+let commandList = 'rfrflfflffrf'
 
-executeCommands(rovers.ironhack, commandList)
+// executeCommands(rovers.ironhack, commandList)
