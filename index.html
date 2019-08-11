@@ -5,12 +5,253 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mars Rover Kata</title>
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
   
-  <h1 class="main-title">Mars Rover Kata</h1>
+  <h1 class="main-title">PROYECTO MARS ROVER KATA</h1>
 
-  
+  <div id="app" class="app">
+
+    <!-- Welcome message. It's only shown when the page loads -->
+    <div id="welcome-message" class="lightbox">
+      <div class="modal">
+        <div class="modal__header">
+          <h2>¡Bienvenido a Marte!</h2>
+        </div>
+        <div class="modal__body">
+          <p>Has sido seleccionado para explorar una pequeña parte del Planeta Rojo. Tu misión consiste en escanear la zona y reportar todos los obstáculos que encuentres. Sé meticuloso, pues la zona que te ha sido designada ha sido elegida para establecer la primera colonia marciana de la historia de la humanidad!</p>
+          <p>Dispondrás de un rover con la última tecnología (el IronMars rover) para llevar a cabo tu trabajo, pero también cuentas con la suerte de poder rescatar a uno de los rovers más icónicos de la historia de la NASA: el rover Opportunity, el cual acabó su misión debido a una fuerte tormenta de arena que impidió que volviese a comunicarse con su centro de mando.</p>
+          <p>A parte de estos dos titanes marcianos, también podrás solicitar dos lanzamientos de rovers a la Tierra si lo necesitas, pero pídelos con cabeza, ¡lanzar cosas al espacio no es barato!</p>
+        </div>
+        <div class="modal__footer">
+          <a href="#" class="button button--primary">¡Adelante!</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="map" class="map">
+      <span class="map__rover map__rover--ironmars flaticon-caret-arrow-up"></span>
+      <span class="map__rover map__rover--opportunity flaticon-caret-arrow-up"></span>
+
+      <div class="map__row">
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+      </div>
+      <div class="map__row">
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+      </div>
+      <div class="map__row">
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+      </div>
+      <div class="map__row">
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+      </div>
+      <div class="map__row">
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+      </div>
+      <div class="map__row">
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+      </div>
+      <div class="map__row">
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+      </div>
+      <div class="map__row">
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+      </div>
+      <div class="map__row">
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+      </div>
+      <div class="map__row">
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+        <div class="map__cell"></div>
+      </div>
+    </div>
+
+    <div id="rovers" class="rovers">
+
+      <!-- Ironmars rover -->
+      <div id="ironmars" class="rover">
+        <h2 class="rover__name">IronMars rover</h2>
+        <dl class="rover__properties">
+          <div>
+            <dt>Dirección</dt>
+            <dd data-direction="norte">norte</dd>
+          </div>
+          <div>
+            <dt>Coordenada X</dt>
+            <dd data-coord-x="0">0</dd>
+          </div>
+          <div>
+            <dt>Coordenada Y</dt>
+            <dd data-coord-y="0">0</dd>
+          </div>
+          <div>
+            <dt>Estado</dt>
+            <dd>activo</dd>
+          </div>
+          <div>
+            <dt>Color</dt>
+            <dd>azul</dd>
+          </div>
+        </dl>
+        <div class="rover__controls">
+          <button><span class="flaticon-turn-left"></span></button>
+          <button><span class="flaticon-up-arrow"></span></button>
+          <button><span class="flaticon-next"></span></button>
+          <button><span class="flaticon-left-arrow"></span></button>
+          <button><span class="flaticon-down-arrow"></span></button>
+          <button><span class="flaticon-right-arrow"></span></button>
+        </div>
+        <form action="#" class="rover__commands">
+          <input type="text" name="commands-list" id="commands-list">
+          <input type="submit" value="Ejecutar rumbo">
+        </form>
+      </div>
+
+      <!-- Opportunity rover -->
+      <div id="opportunity" class="rover rover--disabled">
+        <h2 class="rover__name">Opportunity rover</h2>
+        <dl class="rover__properties">
+          <div>
+            <dt>Dirección</dt>
+            <dd data-direction="norte">norte</dd>
+          </div>
+          <div>
+            <dt>Coordenada X</dt>
+            <dd data-coord-x="1">1</dd>
+          </div>
+          <div>
+            <dt>Coordenada Y</dt>
+            <dd data-coord-y="8">8</dd>
+          </div>
+          <div>
+            <dt>Estado</dt>
+            <dd>averiado</dd>
+          </div>
+          <div>
+            <dt>Color</dt>
+            <dd>verde</dd>
+          </div>
+        </dl>
+        <div class="rover__controls">
+          <button><span class="flaticon-turn-left"></span></button>
+          <button><span class="flaticon-up-arrow"></span></button>
+          <button><span class="flaticon-next"></span></button>
+          <button><span class="flaticon-left-arrow"></span></button>
+          <button><span class="flaticon-down-arrow"></span></button>
+          <button><span class="flaticon-right-arrow"></span></button>
+        </div>
+        <form action="#" class="rover__commands">
+          <input type="text" name="commands-list" id="commands-list">
+          <input type="submit" value="Ejecutar rumbo">
+        </form>
+      </div>
+
+      <!-- First rover request to Earth -->
+      <div id="first-requested-rover" class="rover rover--request" data-rover-request="first">
+        <a href="#" class="button button--request">Solicitar rover a La Tierra<span class="flaticon-start-up"></span></a>
+      </div>
+
+      <!-- Second rover request to Earth -->
+      <div id="second-requested-rover" class="rover rover--request" data-rover-request="second">
+          <a href="#" class="button button--request">Solicitar rover a La Tierra<span class="flaticon-start-up"></span></a>
+        </div>
+    </div>
+
+    <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a> messages.attribution.is_licensed_by <a href="http://creativecommons.org/licenses/by/3.0/"     title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a> messages.attribution.is_licensed_by <a href="http://creativecommons.org/licenses/by/3.0/"     title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a> messages.attribution.is_licensed_by <a href="http://creativecommons.org/licenses/by/3.0/"     title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
+    
+  </div>
 
   <script src="js/app.js"></script>
   
