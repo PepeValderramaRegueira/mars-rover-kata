@@ -242,11 +242,29 @@ Creation date: 11/08/2019 18:46
 }
 
 .rover__controls button {
-  /* position: absolute; */
   width: 40px;
   height: 40px;
   color: #FFF;
   cursor: pointer;
+}
+
+.rover__controls button:nth-child(1) {
+  grid-column-start: 2;
+}
+
+.rover__controls button:nth-child(2) {
+  grid-column-start: 1;
+  grid-row-start: 2;
+}
+
+.rover__controls button:nth-child(3) {
+  grid-column-start: 2;
+  grid-row-start: 2;
+}
+
+.rover__controls button:nth-child(4) {
+  grid-column-start: 3;
+  grid-row-start: 2;
 }
 
 .rover__controls button:hover {
