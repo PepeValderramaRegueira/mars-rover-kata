@@ -34,11 +34,18 @@ const map = [
 
 // Rovers
 const rovers = {
-  ironhack: {
-    name: "Ironhack's Mars rover",
+  ironmars: {
+    name: "IronMars rover",
     direction: 'N',
     x: 0,
     y: 0,
+    travelLog: []
+  },
+  opportunity: {
+    name: 'Opportunity rover',
+    direction: 'N',
+    x: 1,
+    y: 8,
     travelLog: []
   }
 }
