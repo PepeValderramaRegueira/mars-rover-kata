@@ -12,22 +12,29 @@ const moves = {
     E: -1,
     S: -1,
     W: 1
+  },
+
+  rotate: {
+    N: 0,
+    E: 90,
+    S: 180,
+    W: 270
   }
 }
 
 // Object for the map. Contains all the obstacles
 // If an element is different to 0, it's an obstacle
 const map = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 'Martian rock', 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 'Crater', 0, 0, 0, 0],
+  [0, 0, 0, 'Martian rock', 0, 0, 0, 'Crater', 0, 0],
   [0, 'Remains of the Pathfinder probe', 0, 0, 0, 0, 0, 'Schiaparelli crater', 0, 0],
   [0, 0, 0, 0, 'Martian rock', 0, 0, 0, 0, 0],
   [0, 'Martian rock', 0, 0, 0, 0, 0, 0, 'Martian rock', 0],
   
-  [0, 0, 0, 0, 0, 0, 'Martian rock', 0, 0, 0],
+  [0, 'Crater', 0, 0, 0, 0, 'Martian rock', 0, 0, 0],
   [0, 0, 'Cassini crater', 0, 0, 0, 0, 'Olympus Mons', 0, 0],
-  [0, 0, 0, 'Martian rock', 0, 0, 0, 0, 0, 0],
-  [0, 'Remains of the Opportunity rover', 0, 0, 0, 0, 0, 'Martian rock', 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 'Crater', 0, 0],
+  [0, 0, 0, 0, 'Crater', 0, 0, 'Martian rock', 0, 0],
   [0, 0, 'Martian rock', 0, 0, 0, 0, 0, 0, 0],
 ]
 
@@ -246,3 +253,68 @@ const executeCommands = (rover, list) => {
 let commandList = 'rfrflfflffrf'
 
 // executeCommands(rovers.ironhack, commandList)
+
+
+// Functionality
+
+const ironmars        = document.getElementById('ironmars-rover'),
+      opportunity     = document.getElementById('opportunity-rover'),
+      roversInfo      = document.getElementById('rovers'),
+      welcomeMessage  = document.getElementById('welcome-message')
+
+// Add the listener to close the welcome message
+welcomeMessage.addEventListener('click', e => {
+
+  // Check if the '¡Adelante!' button was clicked
+  if (e.target.tagName === 'A') {
+    welcomeMessage.classList.add('lightbox--is-closed')
+  }
+})
+
+// Add the listener to the rover's modules
+roversInfo.addEventListener('click', e => {
+
+  // Check where was clicked
+  const target = e.target
+
+  if (target.dataset.move) {
+    
+    // A control arrow was clicked
+
+    // Save the movement
+    const move = target.dataset.move
+
+    // Save the rover
+    const rover = target.parentElement.parentElement.id
+    
+    // Check what was clicked
+    switch (move) {
+
+      case 'move-forward':
+        moveForward(rovers[rover]);
+        break;
+
+      case 'turn-left':
+        turnLeft(rovers[rover]);
+        break;
+
+      case 'turn-right':
+        turnRight(rovers[rover]);
+        break;
+
+      case 'move-backward':
+        moveBackward(rovers[rover]);
+        break;
+    }
+
+    document.getElementById(`${rover}-rover`).style.transform = `rotate(${moves.rotate[rovers[rover].direction]}deg)`
+
+    // Check where the rover is heading at
+    switch (rovers[rover].direction) {
+
+      case 'N':
+      case 'S': document.getElementById(`${rover}-rover`).style.top = (rovers[rover].y * 30) + 5 + 'px'; break;
+      default: document.getElementById(`${rover}-rover`).style.left = (rovers[rover].x * 30) + 7 + 'px'
+    }
+  }
+})
