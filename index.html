@@ -24,7 +24,7 @@
         <div class="modal__body">
           <p>Has sido seleccionado para explorar una pequeña parte del Planeta Rojo. Tu misión consiste en escanear la zona y reportar todos los obstáculos que encuentres. Sé meticuloso, pues la zona que te ha sido designada ha sido elegida para establecer la primera colonia marciana de la historia de la humanidad!</p>
           <p>Dispondrás de un rover con la última tecnología (el IronMars rover) para llevar a cabo tu trabajo, pero también cuentas con la suerte de poder rescatar a uno de los rovers más icónicos de la historia de la NASA: el rover Opportunity, el cual acabó su misión debido a una fuerte tormenta de arena que impidió que volviese a comunicarse con su centro de mando.</p>
-          <p>A parte de estos dos titanes marcianos, también podrás solicitar dos lanzamientos de rovers a la Tierra si lo necesitas, pero pídelos con cabeza, ¡lanzar cosas al espacio no es barato!</p>
+          <p>¡Buena suerte en la misión!</p>
         </div>
         <div class="modal__footer">
           <a href="#" class="button button--primary">¡Adelante!</a>
@@ -33,8 +33,8 @@
     </div>
 
     <div id="map" class="map">
-      <span class="map__rover map__rover--ironmars flaticon-caret-arrow-up"></span>
-      <span class="map__rover map__rover--opportunity flaticon-caret-arrow-up"></span>
+      <span class="map__rover map__rover--ironmars flaticon-caret-arrow-up" id="ironmars-rover"></span>
+      <span class="map__rover map__rover--opportunity flaticon-caret-arrow-up" id="opportunity-rover"></span>
 
       <div class="map__row">
         <div class="map__cell"></div>
@@ -185,6 +185,10 @@
             <dd>azul</dd>
           </div>
         </dl>
+        <form action="#" class="rover__commands">
+          <input type="text" autocomplete="off" placeholder="Secuencia de comandos" name="commands-list" id="commands-list">
+          <input type="submit" class="button button--primary" value="Ejecutar">
+        </form>
         <div class="rover__controls">
           <button><span class="flaticon-turn-left"></span></button>
           <button><span class="flaticon-up-arrow"></span></button>
@@ -193,10 +197,9 @@
           <button><span class="flaticon-down-arrow"></span></button>
           <button><span class="flaticon-right-arrow"></span></button>
         </div>
-        <form action="#" class="rover__commands">
-          <input type="text" name="commands-list" id="commands-list">
-          <input type="submit" value="Ejecutar rumbo">
-        </form>
+        <div class="rover__travel-log">
+          <h3>Registro de viaje <span>&#8689;</span></h3>
+        </div>
       </div>
 
       <!-- Opportunity rover -->
@@ -224,6 +227,10 @@
             <dd>verde</dd>
           </div>
         </dl>
+        <form action="#" class="rover__commands">
+          <input type="text" autocomplete="off" placeholder="Secuencia de comandos" name="commands-list" id="commands-list">
+          <input type="submit" class="button button--primary" value="Ejecutar">
+        </form>
         <div class="rover__controls">
           <button><span class="flaticon-turn-left"></span></button>
           <button><span class="flaticon-up-arrow"></span></button>
@@ -232,21 +239,11 @@
           <button><span class="flaticon-down-arrow"></span></button>
           <button><span class="flaticon-right-arrow"></span></button>
         </div>
-        <form action="#" class="rover__commands">
-          <input type="text" name="commands-list" id="commands-list">
-          <input type="submit" value="Ejecutar rumbo">
-        </form>
-      </div>
-
-      <!-- First rover request to Earth -->
-      <div id="first-requested-rover" class="rover rover--request" data-rover-request="first">
-        <a href="#" class="button button--request">Solicitar rover a La Tierra<span class="flaticon-start-up"></span></a>
-      </div>
-
-      <!-- Second rover request to Earth -->
-      <div id="second-requested-rover" class="rover rover--request" data-rover-request="second">
-          <a href="#" class="button button--request">Solicitar rover a La Tierra<span class="flaticon-start-up"></span></a>
+        <div class="rover__travel-log">
+          <h3>Registro de viaje <span>&#8689;</span></h3>
+          <div></div>
         </div>
+      </div>
     </div>
 
     <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a> messages.attribution.is_licensed_by <a href="http://creativecommons.org/licenses/by/3.0/"     title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a> messages.attribution.is_licensed_by <a href="http://creativecommons.org/licenses/by/3.0/"     title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a> messages.attribution.is_licensed_by <a href="http://creativecommons.org/licenses/by/3.0/"     title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
