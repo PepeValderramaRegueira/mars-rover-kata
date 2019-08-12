@@ -79,7 +79,6 @@ Creation date: 11/08/2019 18:46
   font-family: Flaticon;
   font-size: 1rem;
   font-style: normal;
-  pointer-events: none;
 }
 
 .flaticon-down-arrow:before { content: "\f100"; }
@@ -88,8 +87,11 @@ Creation date: 11/08/2019 18:46
 .flaticon-left-arrow:before { content: "\f103"; }
 .flaticon-turn-left:before { content: "\f104"; }
 .flaticon-next:before { content: "\f105"; }
-.flaticon-start-up:before { content: "\f106"; }
-.flaticon-caret-arrow-up:before { content: "\f107"; }
+.flaticon-caret-arrow-up:before { content: "\f106"; }
+.flaticon-mountain-range:before { content: "\f107"; }
+.flaticon-rock:before { content: "\f108"; }
+.flaticon-moon-with-craters:before { content: "\f109"; }
+.flaticon-satellite-dish:before { content: "\f10a"; }
 
 
 /* Modules */
@@ -177,10 +179,22 @@ Creation date: 11/08/2019 18:46
   width: 30px;
   height: 30px;
   outline: 1px solid crimson;
+  position: relative;
+}
+
+.map__cell span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #232323;
 }
 
 .map__rover {
   position: absolute;
+  transition: top .2s, left .2s;
+  z-index: 10;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, .35);
 }
 
 .map__rover--ironmars {
