@@ -375,6 +375,11 @@ roversInfo.addEventListener('click', e => {
       case 'S': document.getElementById(`${rover}-rover`).style.top = (rovers[rover].y * 30) + 5 + 'px'; break;
       default: document.getElementById(`${rover}-rover`).style.left = (rovers[rover].x * 30) + 7 + 'px'
     }
+  } else if (target.tagName === 'H3') {
+
+    // When the travel log title is clicked, switch the class of it's container
+    // so the travel log shows up
+    target.parentElement.classList.toggle('rover__travel-log--is-open')
   }
 })
 
