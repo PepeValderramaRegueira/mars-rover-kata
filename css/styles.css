@@ -24,7 +24,7 @@
 body {
   background-color: var(--background);
   color: var(--on-background);
-  padding: 2rem;
+  padding-top: 2rem;
   font-size: 1.25rem;
 }
 
@@ -418,4 +418,19 @@ Creation date: 11/08/2019 18:46
 
 .rover__travel-log--is-open h3 span {
   transform: rotate(180deg);
+}
+
+.footer {
+  padding: 5rem;
+  background-color: rgba(0, 0, 0, .35);
+  margin-top: 3rem;
+}
+
+.footer h2 {
+  color: yellow;
+  margin-bottom: 1rem;
+}
+
+.footer a {
+  color: #0FF;
 }
