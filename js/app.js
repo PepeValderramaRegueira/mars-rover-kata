@@ -86,6 +86,9 @@ const getRoverNextPosition = (rover, movement) => {
   let nextPosition
   let nextPositionInfo
 
+  // Check what is the other rover
+  let otherRover = rover.name.toLowerCase() === 'ironmars' ? 'opportunity' : 'ironmars'
+
   // Variables that will containt what's around the rover
   let topPosition, bottomPosition, rightPosition, leftPosition
     
@@ -101,16 +104,38 @@ const getRoverNextPosition = (rover, movement) => {
   // There are movements (like going forward heading North and going backwards heading South)
   // that are the same, so it is possible to optimize the movement check
   if ( (rover.direction === 'N' && movement === 'forwards') ||
-    (rover.direction === 'S' && movement === 'backwards') ) nextPositionInfo = topPosition
+    (rover.direction === 'S' && movement === 'backwards') ) {
+
+      if (rover.y - 1 === rovers[otherRover].y && rover.x === rovers[otherRover].x) return {roverCanMove: false, found: `${otherRover} rover`}
+      
+      nextPositionInfo = topPosition
+  
+  }
 
   else if ( (rover.direction === 'N' && movement === 'backwards') ||
-    (rover.direction === 'S' && movement === 'forwards') ) nextPositionInfo = bottomPosition
+    (rover.direction === 'S' && movement === 'forwards') ) {
+      
+      if (rover.y + 1 === rovers[otherRover].y && rover.x === rovers[otherRover].x) return {roverCanMove: false, found: `${otherRover} rover`}
+      
+      nextPositionInfo = bottomPosition
+    
+  }
 
   else if ( (rover.direction === 'E' && movement === 'forwards') ||
-    (rover.direction === 'W') && (movement === 'backwards') ) nextPositionInfo = rightPosition
+    (rover.direction === 'W') && (movement === 'backwards') ) {
+
+      if (rover.x + 1 === rovers[otherRover].x && rover.y === rovers[otherRover].y) return {roverCanMove: false, found: `${otherRover} rover`}
+      
+      nextPositionInfo = rightPosition
+  }
 
   else if ( (rover.direction === 'E' && movement === 'backwards') ||
-    (rover.direction === 'W' && movement === 'forwards') ) nextPositionInfo = leftPosition
+    (rover.direction === 'W' && movement === 'forwards') ) {
+      
+      if (rover.x - 1 === rovers[otherRover].x && rover.y === rovers[otherRover].y) return {roverCanMove: false, found: `${otherRover} rover`}
+      
+      nextPositionInfo = leftPosition
+  }
 
   // Check the type of the next position
   // string = obstacle
@@ -323,7 +348,7 @@ const executeCommands = (rover, list) => {
 
 // String to test the list of the commands
 // let commandList = 'rfrfflflfffrfrflffrfrf'
-let commandList = 'rfrflfflffrf'
+// let commandList = 'rfrflfflffrf'
 
 // executeCommands(rovers.ironhack, commandList)
 
@@ -404,7 +429,7 @@ testCommandForms.map( form => form.addEventListener('submit', e => {
   // Prevent the form from being sent
   e.preventDefault()
 
-  console.log(form.querySelector('input').value)
+  // console.log(form.querySelector('input').value)
 
   // Execute the command list
   executeCommands(
