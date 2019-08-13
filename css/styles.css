@@ -240,8 +240,27 @@ Creation date: 11/08/2019 18:46
 
 .rover h2 {
   color: yellow;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   text-align: center;
+}
+
+.rover__icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, .9);
+  line-height: 35px;
+  margin: 1rem auto;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .5);
+}
+
+.rover__icon--ironmars {
+  color: blue;
+}
+
+.rover__icon--opportunity {
+  color: green;
 }
 
 .rover__controls {
