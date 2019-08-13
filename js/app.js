@@ -186,6 +186,10 @@ const moveForward = (rover) => {
 
   // Add the travelLog to the rover
   addTravelLog(rover, travelLogMoves)
+
+  // Update the rover's information panel
+  document.getElementById(rover.name.toLowerCase()).querySelector('dd[data-coord-y]').textContent = rover.y
+  document.getElementById(rover.name.toLowerCase()).querySelector('dd[data-coord-x]').textContent = rover.x
 }
 
 
@@ -216,6 +220,10 @@ const moveBackward = (rover) => {
 
   // Add the travelLog to the rover
   addTravelLog(rover, travelLogMoves)
+
+  // Update the rover's information panel
+  document.getElementById(rover.name.toLowerCase()).querySelector('dd[data-coord-y]').textContent = rover.y
+  document.getElementById(rover.name.toLowerCase()).querySelector('dd[data-coord-x]').textContent = rover.x
 }
 
 
@@ -223,7 +231,10 @@ const moveBackward = (rover) => {
 const turnRight = (rover) => {
 
   // Array which will contain the moves to add to the travelLog
-  let travelLogMoves
+  let travelLogMoves,
+
+  // Roer info panel
+  roverInfoPanel = document.getElementById(rover.name.toLowerCase()).querySelector('dd[data-direction]')
 
   let previousDirection = rover.direction,
       newDirection
@@ -231,10 +242,10 @@ const turnRight = (rover) => {
   // Check the current heading position of the rover
   switch (rover.direction) {
 
-    case 'N': newDirection = 'E'; break;
-    case 'E': newDirection = 'S'; break;
-    case 'S': newDirection = 'W'; break;
-    default: newDirection = 'N';
+    case 'N': newDirection = 'E'; roverInfoPanel.textContent = 'este'; break;
+    case 'E': newDirection = 'S'; roverInfoPanel.textContent = 'sur'; break;
+    case 'S': newDirection = 'W'; roverInfoPanel.textContent = 'oeste'; break;
+    default: newDirection = 'N'; roverInfoPanel.textContent = 'norte';
   }
 
   // Add the travel log
@@ -252,18 +263,22 @@ const turnRight = (rover) => {
 const turnLeft = (rover) => {
 
   // Array which will contain the moves to add to the travelLog
-  let travelLogMoves
+  let travelLogMoves,
+
+  // Roer info panel
+  roverInfoPanel = document.getElementById(rover.name.toLowerCase()).querySelector('dd[data-direction]')
 
   let previousDirection = rover.direction,
       newDirection
 
   // Check the current heading position of the rover
+  // and update the rover info panel's heading direction
   switch (rover.direction) {
 
-    case 'N': newDirection = 'W'; break;
-    case 'W': newDirection = 'S'; break;
-    case 'S': newDirection = 'E'; break;
-    default: newDirection = 'N';
+    case 'N': newDirection = 'W'; roverInfoPanel.textContent = 'oeste'; break;
+    case 'W': newDirection = 'S'; roverInfoPanel.textContent = 'sur'; break;
+    case 'S': newDirection = 'E'; roverInfoPanel.textContent = 'este'; break;
+    default: newDirection = 'N'; roverInfoPanel.textContent = 'norte';
   }
 
   // Add the travel log
