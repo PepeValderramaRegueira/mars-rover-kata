@@ -147,8 +147,11 @@ const addTravelLog = (rover, travelLogMoves) => {
   var date = new Date();
   var now = date.toLocaleTimeString();
 
+  let spanNow = document.createElement('span')
+  spanNow.textContent = `[${now}]`
+
   // Add the text to the paragraph
-  newMovement.textContent = `[${now}] ${rover.travelLog[lastTravelLogElement - 1][0]} - ${rover.travelLog[lastTravelLogElement - 1][1]} - ${rover.travelLog[lastTravelLogElement - 1][2]}`
+  newMovement.innerHTML = `<span>[${now}]</span> ${rover.travelLog[lastTravelLogElement - 1][0]} - ${rover.travelLog[lastTravelLogElement - 1][1]} - ${rover.travelLog[lastTravelLogElement - 1][2]}`
   
   // Add the paragraph to the div inside the .rover__travel-log element
   document.getElementById(roverId).querySelector('.rover__travel-log div').append(newMovement)

@@ -359,7 +359,11 @@ Creation date: 11/08/2019 18:46
 }
 
 .rover__travel-log > div {
-  padding: 2rem;
+  padding-bottom: 5.5rem;
+}
+
+.rover__travel-log > div p span {
+  color: #0FF;
 }
 
 .rover__travel-log h3 {
@@ -370,6 +374,20 @@ Creation date: 11/08/2019 18:46
   display: flex;
   justify-content: space-between;
   cursor: pointer;
+  position: sticky;
+  top: 0;
+}
+
+.rover__travel-log p {
+  padding: 1rem 2rem;
+}
+
+.rover__travel-log p:nth-child(even) {
+  background-color: #343434;
+}
+
+.rover__travel-log:last-child {
+  margin-bottom: 2rem;
 }
 
 .rover__travel-log h3:hover {
