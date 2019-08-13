@@ -46,14 +46,16 @@ const rovers = {
     direction: 'N',
     x: 0,
     y: 0,
-    travelLog: []
+    travelLog: [],
+    id: 'ironmars-rover'
   },
   opportunity: {
     name: 'Opportunity rover',
     direction: 'N',
     x: 1,
     y: 8,
-    travelLog: []
+    travelLog: [],
+    id: 'opportunity-rover'
   }
 }
 
@@ -245,6 +247,16 @@ const executeCommands = (rover, list) => {
       case 'b': moveBackward(rover); break;
       default: console.log('Invalid command')
     }
+
+    document.getElementById(`${rover.id}`).style.transform = `rotate(${moves.rotate[rover.direction]}deg)`
+
+    // Check where the rover is heading at
+    switch (roverg.direction) {
+
+      case 'N':
+      case 'S': document.getElementById(`${rover.id}`).style.top = (rover.y * 30) + 5 + 'px'; break;
+      default: document.getElementById(`${rover.id}`).style.left = (rover.x * 30) + 7 + 'px'
+    }
   })
 }
 
@@ -257,10 +269,11 @@ let commandList = 'rfrflfflffrf'
 
 // Functionality
 
-const ironmars        = document.getElementById('ironmars-rover'),
-      opportunity     = document.getElementById('opportunity-rover'),
-      roversInfo      = document.getElementById('rovers'),
-      welcomeMessage  = document.getElementById('welcome-message')
+const ironmars          = document.getElementById('ironmars-rover'),
+      opportunity       = document.getElementById('opportunity-rover'),
+      roversInfo        = document.getElementById('rovers'),
+      welcomeMessage    = document.getElementById('welcome-message'),
+      testCommandForms  = [...document.forms]
 
 // Add the listener to close the welcome message
 welcomeMessage.addEventListener('click', e => {
@@ -318,3 +331,18 @@ roversInfo.addEventListener('click', e => {
     }
   }
 })
+
+// Add the listeners to the test commands forms
+testCommandForms.map( form => form.addEventListener('submit', e => {
+
+  // Prevent the form from being sent
+  e.preventDefault()
+
+  console.log(form.querySelector('input').value)
+
+  // Execute the command list
+  executeCommands(
+    rovers[form.parentElement.id],
+    form.querySelector('input').value
+  )
+}))
