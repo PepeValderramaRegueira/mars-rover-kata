@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Audiowide&display=swap');
-
-/* Fonts */
-@font-face {
-  font-family: 'Nasalization';
-  src: url('./fonts/Nasalization/Typodermic - NasalizationRg-Regular.otf');
-}
+@import url('https://fonts.googleapis.com/css?family=Iceland&display=swap');
 
 /* Reset all the styles */
 
@@ -12,7 +7,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Nasalization';
+  font-family: 'Iceland', cursive;
 }
 
 
@@ -30,6 +25,7 @@ body {
   background-color: var(--background);
   color: var(--on-background);
   padding: 2rem;
+  font-size: 1.25rem;
 }
 
 a {
@@ -376,6 +372,7 @@ Creation date: 11/08/2019 18:46
   cursor: pointer;
   position: sticky;
   top: 0;
+  font-size: 1.25rem;
 }
 
 .rover__travel-log p {
