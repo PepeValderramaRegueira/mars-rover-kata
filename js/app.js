@@ -42,7 +42,7 @@ const map = [
 // Rovers
 const rovers = {
   ironmars: {
-    name: "IronMars rover",
+    name: "IronMars",
     direction: 'N',
     x: 0,
     y: 0,
@@ -50,7 +50,7 @@ const rovers = {
     id: 'ironmars-rover'
   },
   opportunity: {
-    name: 'Opportunity rover',
+    name: 'Opportunity',
     direction: 'N',
     x: 1,
     y: 8,
@@ -129,64 +129,98 @@ const getRoverNextPosition = (rover, movement) => {
 }
 
 
+// Add the travel log to the given rover
+const addTravelLog = (rover, travelLogMoves) => {
+
+  // Append newMovement to the div inside .rover__travel-log element
+  let newMovement = document.createElement('p')
+
+  // Get the rover id so we can add the travel log to the right rover
+  let roverId = rover.name.toLowerCase()
+
+  // Get the last item of the [rover].travelLog array
+  let lastTravelLogElement
+
+  // Save the new length of the travelLog array
+  lastTravelLogElement = rover.travelLog.push([travelLogMoves[0], travelLogMoves[1], travelLogMoves[2]])
+
+  var date = new Date();
+  var now = date.toLocaleTimeString();
+
+  // Add the text to the paragraph
+  newMovement.textContent = `[${now}] ${rover.travelLog[lastTravelLogElement - 1][0]} - ${rover.travelLog[lastTravelLogElement - 1][1]} - ${rover.travelLog[lastTravelLogElement - 1][2]}`
+  
+  // Add the paragraph to the div inside the .rover__travel-log element
+  document.getElementById(roverId).querySelector('.rover__travel-log div').append(newMovement)
+}
+
+
 // Function to move forward
 const moveForward = (rover) => {
 
-  // Check if the rover can move
-  // if (!roverOutOfLimits(rover, "forward")) {
-  //   console.log('The rover is going to roam off the map!')
-  //   return
-  // }
+  // Array which will contain the moves to add to the travelLog
+  let travelLogMoves
 
   let nextPosition = getRoverNextPosition(rover, "forwards")
 
   if (!nextPosition.roverCanMove) {
-    console.log(`The ${rover.name} is heading to a ${nextPosition.found}`)
-    rover.travelLog.push(['Move forward', 'Obstacle found', nextPosition.found])
-    return
+
+    // console.log(`The ${rover.name} is heading to a ${nextPosition.found}`)
+    travelLogMoves = ['Move forward', 'Obstacle found', nextPosition.found]
+  } else {
+
+    // The rover can move forward
+    // Check where is heading and move
+    switch (rover.direction) {
+
+      case 'N':
+      case 'S': rover.y += moves.forward[rover.direction]; break;
+      default: rover.x += moves.forward[rover.direction]
+    }
+
+    travelLogMoves = ['Move forward', `x: ${rover.x}`, `y: ${rover.y}`]
   }
 
-  // The rover can move forward
-  // Check where is heading and move
-  switch (rover.direction) {
-
-    case 'N':
-    case 'S': rover.y += moves.forward[rover.direction]; break;
-    default: rover.x += moves.forward[rover.direction]
-  }
-
-  rover.travelLog.push(['Move forward', `x: ${rover.x}`, `y: ${rover.y}`])
+  // Add the travelLog to the rover
+  addTravelLog(rover, travelLogMoves)
 }
 
 
 // Function to move backward
 const moveBackward = (rover) => {
 
+  // Array which will contain the moves to add to the travelLog
+  let travelLogMoves
+  
   let nextPosition = getRoverNextPosition(rover, "backwards")
 
   // Check if the rover is out of limits
   if (!nextPosition.roverCanMove) {
-    console.log(`The ${rover.name} is heading to a ${nextPosition.found}`)
-    rover.travelLog.push(['Move backward', 'Obstacle found', nextPosition.found])
-    return
+    // console.log(`The ${rover.name} is heading to a ${nextPosition.found}`)
+    travelLogMoves = ['Move backward', 'Obstacle found', nextPosition.found]
+  } else {
+
+    // The rover can move backwards
+    switch (rover.direction) {
+
+      case 'N':
+      case 'S': rover.y += moves.backward[rover.direction]; break;
+      default: rover.x += moves.backward[rover.direction]
+    }
+
+    travelLogMoves = ['Move backward', `x: ${rover.x}`, `y: ${rover.y}`]
   }
 
-  // The rover can move backwards
-  switch (rover.direction) {
-
-    case 'N':
-    case 'S': rover.y += moves.backward[rover.direction]; break;
-    default: rover.x += moves.backward[rover.direction]
-  }
-
-  rover.travelLog.push(['Move backward', `x: ${rover.x}`, `y: ${rover.y}`])
-
-  // console.log(rover)
+  // Add the travelLog to the rover
+  addTravelLog(rover, travelLogMoves)
 }
 
 
 // Function to turn right
 const turnRight = (rover) => {
+
+  // Array which will contain the moves to add to the travelLog
+  let travelLogMoves
 
   let previousDirection = rover.direction,
       newDirection
@@ -201,15 +235,21 @@ const turnRight = (rover) => {
   }
 
   // Add the travel log
-  rover.travelLog.push(['Turn right', `Previous direction: ${previousDirection}`, `New direction: ${newDirection}`])
+  travelLogMoves = ['Turn right', `Previous direction: ${previousDirection}`, `New direction: ${newDirection}`]
 
   // Assign the new direction to the rover
   rover.direction = newDirection
+
+  // Add the travelLog to the rover
+  addTravelLog(rover, travelLogMoves)
 }
 
 
 // Function to turn left
 const turnLeft = (rover) => {
+
+  // Array which will contain the moves to add to the travelLog
+  let travelLogMoves
 
   let previousDirection = rover.direction,
       newDirection
@@ -224,10 +264,13 @@ const turnLeft = (rover) => {
   }
 
   // Add the travel log
-  rover.travelLog.push(['Turn left', `Previous direction: ${previousDirection}`, `New direction: ${newDirection}`])
+  travelLogMoves = ['Turn left', `Previous direction: ${previousDirection}`, `New direction: ${newDirection}`]
 
   // Assign the new direction to the rover
   rover.direction = newDirection
+
+  // Add the travelLog to the rover
+  addTravelLog(rover, travelLogMoves)
 }
 
 
@@ -251,7 +294,7 @@ const executeCommands = (rover, list) => {
     document.getElementById(`${rover.id}`).style.transform = `rotate(${moves.rotate[rover.direction]}deg)`
 
     // Check where the rover is heading at
-    switch (roverg.direction) {
+    switch (rover.direction) {
 
       case 'N':
       case 'S': document.getElementById(`${rover.id}`).style.top = (rover.y * 30) + 5 + 'px'; break;
